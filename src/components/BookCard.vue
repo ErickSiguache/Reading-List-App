@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Book } from '@/types/Book'
+import GeneralButton from './GeneralButton.vue'
 
 const props = defineProps<{
   listBooks: Book[]
@@ -31,9 +32,9 @@ const isFavoritedTitle = (value: string): string | undefined => {
           <p>{{ book.author.name }}</p>
         </article>
         <article class="container-button">
-          <button @click="emits('action', book.ISBN)" :disabled="isFavoritedBook(book.ISBN)">
+          <GeneralButton @click="emits('action', book.ISBN)" :disabled="isFavoritedBook(book.ISBN)">
             {{ isFavorited ? isFavoritedTitle(book.ISBN) : titleButton }}
-          </button>
+          </GeneralButton>
         </article>
       </section>
     </li>
@@ -105,27 +106,6 @@ section {
   display: flex;
   justify-content: flex-end;
   width: 25%;
-}
-
-.container-button button {
-  padding: 0.4rem;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
-  color: var(--text-button);
-  background-color: var(--border-containers);
-}
-
-.container-button button:hover {
-  background-color: var(--hover-button);
-}
-
-.container-button button:active {
-  background-color: var(--primary-color);
-}
-
-.container-button button:disabled {
-  background-color: var(--prymary-color-disabled);
 }
 
 @media only screen and (max-width: 835px) {

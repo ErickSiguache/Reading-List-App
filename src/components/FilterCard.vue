@@ -1,23 +1,18 @@
 <script setup lang="ts">
-import { useBooksStore } from '@/stores/useBooksStore'
-import { storeToRefs } from 'pinia'
+import GeneralButton from './GeneralButton.vue'
 
-const useBooks = useBooksStore()
-const { totalPages } = useBooks
-const { genre, genres, pageToSearch, titleToSearch } = storeToRefs(useBooks)
+import { useBook } from '@/composables/useBooks'
 
-const minPages = (): void => {
-  pageToSearch.value = pageToSearch.value - 10
-}
-const maxPages = (): void => {
-  pageToSearch.value = pageToSearch.value + 10
-}
-
-const resetAllSearchResults = (): void => {
-  genre.value = ''
-  titleToSearch.value = ''
-  pageToSearch.value = totalPages
-}
+const {
+  genres,
+  genre,
+  pageToSearch,
+  titleToSearch,
+  totalPages,
+  minPages,
+  maxPages,
+  resetAllSearchResults
+} = useBook()
 </script>
 <template>
   <section>
@@ -59,7 +54,9 @@ const resetAllSearchResults = (): void => {
       <p>{{ pageToSearch }}</p>
       <button @click="maxPages" :disabled="pageToSearch >= totalPages">+</button>
     </article>
-    <button @click="resetAllSearchResults">Reset All</button>
+    <article>
+      <GeneralButton @click="resetAllSearchResults"> Reset All </GeneralButton>
+    </article>
   </section>
 </template>
 

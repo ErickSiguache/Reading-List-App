@@ -8,11 +8,33 @@ export function useBook() {
   const useFavorites = useFavoritesStore()
 
   const { saveFavorites, isFavorite } = useFavorites
-  const { filtersBooks } = storeToRefs(useBooks)
+  const { filtersBooks, genre, genres, pageToSearch, titleToSearch } = storeToRefs(useBooks)
+  const { totalPages } = useBooks
+
+  const minPages = (): void => {
+    pageToSearch.value = pageToSearch.value - 10
+  }
+  const maxPages = (): void => {
+    pageToSearch.value = pageToSearch.value + 10
+  }
+
+  const resetAllSearchResults = (): void => {
+    genre.value = ''
+    titleToSearch.value = ''
+    pageToSearch.value = totalPages
+  }
 
   return {
     filtersBooks,
+    genres,
+    genre,
+    pageToSearch,
+    titleToSearch,
+    totalPages,
     saveFavorites,
-    isFavorite
+    isFavorite,
+    minPages,
+    maxPages,
+    resetAllSearchResults
   }
 }
