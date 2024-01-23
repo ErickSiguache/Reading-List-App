@@ -10,5 +10,5 @@ const { getFavoriteBooks, removeFavorite } = useFavorite()
   <template v-if="getFavoriteBooks.length > 0">
     <BookCard :listBooks="getFavoriteBooks" titleButton="Remove" @action="removeFavorite" />
   </template>
-  <NoDataComponentVue v-else titleNotData="No se han encontrado libro en la lista de favoritos" />
+  <NoDataComponentVue v-else titleNotData="No book found in favorites list" />
 </template>

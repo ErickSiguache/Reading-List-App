@@ -59,12 +59,14 @@ li {
   align-items: center;
   border-radius: 5px;
   padding: 1rem;
-  border: 1px solid var(--text-color);
+  border: 1px solid var(--primary-color-transparent);
   transition: all 100ms ease-in-out;
+  transition-duration: 0.2s;
+  transition-property: box-shadow;
 }
 
 li:hover {
-  border: 1px solid var(--primary-color);
+  box-shadow: 0 0 10px var(--primary-color);
 }
 
 li img {
@@ -108,10 +110,11 @@ section {
   width: 25%;
 }
 
-@media only screen and (max-width: 835px) {
+@media only screen and (max-width: 891px) {
   ul {
     width: 100%;
     margin: 1rem;
+    padding: 10px;
   }
 }
 </style>

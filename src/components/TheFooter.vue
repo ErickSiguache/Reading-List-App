@@ -5,7 +5,7 @@ defineProps<{
 </script>
 <template>
   <footer>
-    <h3>Creado con 💖 por {{ creator }}</h3>
+    <h3>Created with 💖 by {{ creator }}</h3>
   </footer>
 </template>
 <style scoped>

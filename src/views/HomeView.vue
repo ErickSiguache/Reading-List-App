@@ -12,10 +12,10 @@ const { filtersBooks, isFavorite, saveFavorites } = useBook()
     <BookCard
       :listBooks="filtersBooks"
       titleButton="Add"
-      optionalTitle="added"
+      optionalTitle="Added"
       :isFavorited="isFavorite"
       @action="saveFavorites"
     />
   </template>
-  <NoDataComponent v-else titleNotData="No se han encontrado libros" />
+  <NoDataComponent v-else titleNotData="No books found in the list" />
 </template>

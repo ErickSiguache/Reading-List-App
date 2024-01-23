@@ -1,7 +1,12 @@
 <script setup lang="ts">
+import LabelStructure from '@/layouts/LabelStructure.vue'
 import GeneralButton from './GeneralButton.vue'
+import GeneralInput from './GeneralInput.vue'
+import GeneralSelect from './GeneralSelect.vue'
 
 import { useBook } from '@/composables/useBooks'
+import InputRangeGeneral from './InputRangeGeneral.vue'
+import FilterButtonCard from './FilterButtonCard.vue'
 
 const {
   genres,
@@ -16,45 +21,33 @@ const {
 </script>
 <template>
   <section>
-    <article class="search-input-text">
-      <label>
-        Book
-        <input
-          type="search"
-          name="search-input"
-          v-model="titleToSearch"
-          placeholder="The name of the book"
-        />
-      </label>
-    </article>
-    <article class="search-input-text">
-      <label>
-        Filters:
-        <select v-model="genre">
-          <option value="" :selected="genre !== ''">Select All</option>
-          <option v-for="gen in genres" :key="gen" :value="gen">{{ gen }}</option>
-        </select>
-      </label>
-    </article>
-    <article>
-      <label>
-        Total Pages:
-        <input
-          type="range"
-          min="0"
-          :max="totalPages"
-          step="10"
-          v-model.number="pageToSearch"
-          placeholder="Number to pages"
-        />
-      </label>
-    </article>
-    <article class="filter-pages">
-      <button @click="minPages" :disabled="pageToSearch <= 0">-</button>
-      <p>{{ pageToSearch }}</p>
-      <button @click="maxPages" :disabled="pageToSearch >= totalPages">+</button>
-    </article>
-    <article>
+    <h2>Filter by:</h2>
+    <LabelStructure titleLabel="Search by name">
+      <GeneralInput
+        typeBtn="search"
+        placeText="Juego de Tronos, Harry Potter..."
+        nameBtn="search-input"
+        v-model="titleToSearch"
+      />
+    </LabelStructure>
+    <LabelStructure titleLabel="Search by genre">
+      <GeneralSelect :values="genres" v-model="genre" />
+    </LabelStructure>
+    <LabelStructure titleLabel="Search by Pages">
+      <InputRangeGeneral
+        :initialValue="0"
+        :totalPages="totalPages"
+        :stepValue="10"
+        v-model="pageToSearch"
+      />
+      <FilterButtonCard
+        :pagesToChange="pageToSearch"
+        :longPages="totalPages"
+        @max="maxPages"
+        @min="minPages"
+      />
+    </LabelStructure>
+    <article class="reset-container">
       <GeneralButton @click="resetAllSearchResults"> Reset All </GeneralButton>
     </article>
   </section>
@@ -62,73 +55,27 @@ const {
 
 <style scoped>
 section {
+  text-align: start;
   margin: 1rem;
   min-width: 250px;
-  max-height: 300px;
-  border: 1px solid var(--background-color);
+  max-height: 378px;
   border-radius: 5px;
+  padding: 1rem;
   box-sizing: border-box;
   background-color: var(--primary-color-transparent);
-  border: 1px solid var(--border-containers);
+  box-shadow: 1px var(--primary-color);
 }
-article {
+
+h2 {
+  font-size: 1rem;
+  padding-bottom: 0.7rem;
+}
+
+.reset-container {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 10px;
-  border-bottom: 1px solid white;
-}
-
-.search-input-text {
-  width: 100%;
-}
-
-.search-input-text label {
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  gap: 10px;
-  width: 100%;
-}
-
-.search-input-text input[type='search'] {
-  width: 100%;
-  border: none;
-  padding: 5px;
-  border-radius: 5px;
-  color: var(--text-color);
-  background-color: var(--background-color);
-}
-
-.search-input-text input[type='search']::placeholder {
-  color: var(--text-color);
-}
-
-.search-input-text input[type='search']:focus {
-  outline: var(--primary-color) solid 1px;
-}
-
-.filter-pages {
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
   align-items: center;
+  justify-content: center;
   width: 100%;
-}
-
-.filter-pages button {
-  padding: 10px;
-  color: var(--text-color);
-  background-color: transparent;
-  border: 1px solid var(--primary-color);
-  cursor: pointer;
-}
-
-.filter-pages button:hover {
-  border: 1px solid var(--hover-button);
-}
-
-.filter-pages button:disabled {
-  border: 1px solid var(--prymary-color-disabled);
+  padding-top: 1rem;
 }
 </style>
